@@ -4,6 +4,21 @@ import 'dart:io';
 
 import 'zbar_scan_plugin_bindings_generated.dart';
 
+class PointInfo {
+  const PointInfo({
+    required this.x,
+    required this.y,
+  });
+
+  factory PointInfo.fromPoint(Point point) => PointInfo(
+        x: point.x,
+        y: point.y,
+      );
+
+  final int x;
+  final int y;
+}
+
 class CodeInfo {
   const CodeInfo({
     required this.content,
@@ -11,13 +26,15 @@ class CodeInfo {
   });
 
   final String content;
-  final List<Point> points;
+  final List<PointInfo> points;
 
   factory CodeInfo.fromCode(Code code) => CodeInfo(
         content: code.content.cast<Utf8>().toDartString(),
-        points: List<Point>.generate(
+        points: List<PointInfo>.generate(
           code.pointsCount,
-          (index) => code.points.elementAt(index).ref,
+          (index) => PointInfo.fromPoint(
+            code.points.elementAt(index).ref,
+          ),
         ),
       );
 }

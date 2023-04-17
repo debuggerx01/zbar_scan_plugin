@@ -116,7 +116,7 @@ FFI_PLUGIN_EXPORT ScanResult scan(char *imagePath) {
     }
   }
 
-  printf("Found: %d\n", codesCount);
+  // printf("Found: %d\n", codesCount);
 
   /* clean up */
   zbar_image_destroy(image);
